@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="route_planning" type="basic_shapes" name="shape" output="screen"/>
+	<node pkg="route_planning" type="obstacle_talker" name="obs" output="screen"/>
+</launch>

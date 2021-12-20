@@ -1,0 +1,4 @@
+<launch>
+        <node pkg="command" type="skeyboard" name="key" />
+        <node pkg="command" type="cmdvel" name="cmd" output="screen"/>
+</launch>

@@ -1,0 +1,7 @@
+<robot name="my_car" xmlns:xacro="http://wiki.ros.org/xacro">
+		<xacro:include filename="interial.xacro" />
+		<xacro:include filename="mbot_base.xacro" />
+		<xacro:include filename="lidar.xacro" />
+		<xacro:include filename="move.xacro" />
+		<xacro:include filename="lidar_sensor.xacro" />
+</robot> 

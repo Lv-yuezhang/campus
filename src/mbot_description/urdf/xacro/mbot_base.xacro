@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<robot name="base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:property name="PI" value="3.141"/>
+
+	<material name="black">
+		<color rgba="0.0 0.0 0.0 1.0" />
+	</material>
+
+	<xacro:property name="base_footprint_radius" value="0.001" /> 
+	<xacro:property name="earth_space" value="0.01" />
+
+	<xacro:property name="base_link_l" value="0.15" /> 
+	<xacro:property name="base_link_w" value="0.12" />
+	<xacro:property name="base_link_h" value="0.08" /> 
+	<xacro:property name="base_link_mg" value="0.5" />
+
+	<link name="base_footprint">
+		<visual>
+			<geometry>
+				<sphere radius="${base_footprint_radius}" />
+			</geometry>
+		</visual>
+	</link>
+
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<box size="${base_link_l}  ${base_link_w} ${base_link_h}" />
+			</geometry>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<material name="yellow">
+				<color rgba="0.5 0.3 0.0 1" />
+			</material>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${base_link_l}  ${base_link_w} ${base_link_h}" />
+			</geometry>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+		</collision>
+		<xacro:Box_inertial_matrix m="${base_link_mg}" l="${base_link_l}" w="${base_link_w}" h="${base_link_h}"/>
+	</link>
+
+	<joint name="base_link2base_footprint" type="fixed">
+		<parent link="base_footprint" />
+		<child link="base_link" />
+		<origin xyz="0.9 -0.9 ${earth_space + base_link_h / 2 }" rpy="0 0 0" />
+	</joint>
+
+	<gazebo reference="base_link">
+		<material>Gazebo/Yellow</material>
+	</gazebo>
+
+	<xacro:property name="wheel_radius" value="0.025" />
+	<xacro:property name="wheel_length" value="0.015" />
+	<xacro:property name="wheel_m" value="0.5" /> 
+
+	<xacro:macro name="add_wheels" params="name flag fr_ba">
+		<link name="${name}_wheel">
+			<visual>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_length}" />
+				</geometry>
+				<origin xyz="0.0 0.0 0.0" rpy="${PI / 2} 0.0 0.0" />
+				<material name="black" />
+			</visual>
+
+			<collision>
+				<geometry>
+					<cylinder radius="${wheel_radius}" length="${wheel_length}" />
+				</geometry>
+				<origin xyz="0.0 0.0 0.0" rpy="${PI / 2} 0.0 0.0" />
+			</collision>
+			<xacro:cylinder_inertial_matrix m="${wheel_m}" r="${wheel_radius}" h="${wheel_length}" />
+		</link>
+
+		<joint name="${name}_wheel2base_link" type="continuous">
+			<parent link="base_link" />
+			<child link="${name}_wheel" />
+			<origin xyz="${fr_ba * base_link_l / 4} ${flag * base_link_w / 2} ${-(earth_space + base_link_h / 2 - wheel_radius) }" />
+			<axis xyz="0 1 0" />
+		</joint>
+
+		<gazebo reference="${name}_wheel">
+				<material>Gazebo/Red</material>
+		</gazebo>
+	</xacro:macro>
+
+	<xacro:add_wheels name="left" flag="1" fr_ba = "1" />
+	<xacro:add_wheels name="right" flag="-1" fr_ba = "1" />
+	<xacro:add_wheels name="f_left" flag="1" fr_ba = "-1" />
+	<xacro:add_wheels name="f_right" flag="-1" fr_ba = "-1" />
+</robot>

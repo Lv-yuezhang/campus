@@ -1,0 +1,20 @@
+<launch>
+        <include file="$(find command)/src/run.launch"/>
+        <include file="$(find nav_move)/launch/nav_slam.launch"/>
+
+	<param name="robot_description" command="$(find xacro)/xacro $(find mbot_description)/urdf/xacro/my_car.xacro"/>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+			<arg name="world_name" value="$(find mbot_description)/world/aaa.world" />
+	</include>
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+	<node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model mycar -param robot_description" />
+	
+	<node pkg="route_planning" type="basic_shapes" name="shape"/>
+	<node pkg="route_planning" type="obstacle_talker" name="obs" />
+
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mbot_description)/config/config.rviz" required="true"/>
+</launch>

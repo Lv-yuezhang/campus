@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/l/catkin_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_bullet/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_eigen/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_geometry_msgs/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_kdl/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_msgs/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_ros/include/**",
+        "/home/l/catkin_ws/src/geometry2/tf2_sensor_msgs/include/**",
+        "/usr/include/**",
+	"/home/l/public/Campus/catkin_ws/devel/include/"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

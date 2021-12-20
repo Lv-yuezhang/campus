@@ -1,0 +1,10 @@
+<launch>
+	<!-- 启动SLAM节点 -->
+	<include file="$(find nav_move)/launch/nav_slam.launch" />
+	<!-- 运行move_base节点 -->
+	<include file="$(find nav_move)/launch/nav_path.launch" />
+
+	<!--include file="$(find nav_move)/launch/nav_amcl.launch" />
+	< 运行rviz -->
+	<!--node pkg="rviz" type="rviz" name="rviz" args="-d $(find nav_move)/config/nav.rviz" /-->
+</launch>
